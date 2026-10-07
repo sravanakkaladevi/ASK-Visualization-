@@ -37,7 +37,7 @@ const categoryInfo: Record<
 > = {
   'computer-fundamentals': {
     name: 'Computer Fundamentals',
-    description: 'Source code compilation, Compiler Lexer/AST, CPU & Memory execution flow.',
+    description: 'CPU (Control Unit, ALU, Registers), RAM vs ROM, Tri-Bus System (Address, Data, Control) & Compilation Flow.',
     icon: Cpu,
     color: 'from-blue-600 to-cyan-600',
   },

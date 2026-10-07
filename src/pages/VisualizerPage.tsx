@@ -16,6 +16,7 @@ import { WaterfallView } from '../visualizers/WaterfallView';
 import { MernView } from '../visualizers/MernView';
 import { LinuxGitDevOpsView } from '../visualizers/LinuxGitDevOpsView';
 import { CompFundView } from '../visualizers/CompFundView';
+import { CpuArchitectureView } from '../visualizers/CpuArchitectureView';
 import { ChessboardView, ChessboardState } from '../visualizers/ChessboardView';
 import { LldView, LldState } from '../visualizers/LldView';
 import { LinuxTerminalView, LinuxTerminalState } from '../visualizers/LinuxTerminalView';
@@ -36,6 +37,7 @@ import {
   MernState,
   LinuxGitDevOpsState,
   CompFundState,
+  CpuArchitectureState,
 } from '../types/algorithm';
 import { BinarySearchInput } from '../algorithms/binarySearch';
 
@@ -236,6 +238,9 @@ export const VisualizerPage: React.FC = () => {
     }
     if (meta.id === 'product-deployment' || meta.id === 'git-workflow') {
       return <LinuxGitDevOpsView data={(currentStep.state as LinuxGitDevOpsState) || { mode: 'product-deployment', logMessage: '' }} />;
+    }
+    if (meta.id === 'cpu-ram-architecture' || ('registers' in (currentStep.state as Record<string, unknown>) && 'buses' in (currentStep.state as Record<string, unknown>))) {
+      return <CpuArchitectureView data={currentStep.state as CpuArchitectureState} />;
     }
     if (meta.id === 'compilation-flow') {
       return <CompFundView data={(currentStep.state as CompFundState) || { stages: [], currentStageId: '', logMessage: '' }} />;

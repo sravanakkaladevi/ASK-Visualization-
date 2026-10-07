@@ -21,9 +21,18 @@ An interactive, educational visualization platform crafted for students, fresher
 
 ---
 
-## 📚 Comprehensive Curriculum
+### 1. Computer Fundamentals & Architecture
+- **CPU, RAM, ROM & Bus Architecture**:
+  - **Central Processing Unit (CPU)**: Control Unit (instruction decoder & clock generator), Arithmetic Logic Unit (ALU mathematical/bitwise operations), and High-Speed Internal Registers (`PC`, `IR`, `MAR`, `MDR`, `ACC`, `R1`).
+  - **Memory Hierarchy**: Volatile High-Speed **RAM** (active instructions & dynamic variables), Non-Volatile **ROM** (BIOS/UEFI firmware & bootstrap POST routines), and L1/L2 Cache lines.
+  - **System Tri-Bus Highway**: Live pulse animations across the **Control Bus** (Read/Write signals), **Address Bus** (memory address routing), and **Data Bus** (bi-directional binary payload transfer).
+  - **Instruction Execution Cycle**: Step-by-step visual transitions through **Boot** $\to$ **Fetch** $\to$ **Decode** $\to$ **Execute** $\to$ **Store**.
+- **Compilation & Execution Pipeline**:
+  - C/C++ Lexical Analysis $\to$ Abstract Syntax Tree (AST) $\to$ Intermediate Code Generation $\to$ CPU Assembly $\to$ Machine Binary.
 
-### 1. Data Structures & Algorithms (DSA)
+---
+
+### 2. Data Structures & Algorithms (DSA)
 - **Sorting Algorithms**: Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, Quick Sort (Lomuto Partition).
 - **Searching Algorithms**: Binary Search ($O(\log N)$) and Linear Search ($O(N)$).
 - **Linear Data Structures**: 

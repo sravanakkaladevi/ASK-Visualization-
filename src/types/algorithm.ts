@@ -264,6 +264,39 @@ export interface CompFundState {
   logMessage: string;
 }
 
+// CPU, RAM, ROM & Bus Hardware Architecture Types
+export interface MemoryCell {
+  address: string;
+  value: string;
+  label?: string;
+  type: 'code' | 'data' | 'rom';
+  highlight?: boolean;
+}
+
+export interface CpuArchitectureState {
+  activeUnit: 'CU' | 'ALU' | 'PC' | 'MAR' | 'MDR' | 'IR' | 'RAM' | 'ROM' | 'BUS' | 'CACHE' | 'STORAGE' | 'COMPLETE';
+  cyclePhase: 'BOOT' | 'FETCH' | 'DECODE' | 'EXECUTE' | 'STORE' | 'COMPLETE';
+  registers: {
+    PC: string;  // Program Counter
+    IR: string;  // Instruction Register
+    MAR: string; // Memory Address Register
+    MDR: string; // Memory Data Register
+    ACC: string; // Accumulator
+    R1: string;  // General Purpose Register 1
+    R2: string;  // General Purpose Register 2
+  };
+  buses: {
+    controlBus: { active: boolean; signal: string };
+    addressBus: { active: boolean; address: string };
+    dataBus: { active: boolean; data: string; direction: 'to-cpu' | 'to-memory' | 'idle' };
+  };
+  ram: MemoryCell[];
+  rom: MemoryCell[];
+  cache: { line: number; tag: string; data: string; hit: boolean }[];
+  aluOperation?: { op: string; operandA: string; operandB: string; result: string };
+  logMessage: string;
+}
+
 // SDLC Types
 export interface SdlcPhase {
   id: string;

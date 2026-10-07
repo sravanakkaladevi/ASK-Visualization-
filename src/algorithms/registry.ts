@@ -29,11 +29,16 @@ import { cicdPipelineDefinition } from './cicdPipeline';
 import { waterfallModelDefinition } from './waterfallModel';
 import { gitWorkflowDefinition } from './gitWorkflow';
 import { compilationFlowDefinition } from './compilationFlow';
+import { cpuArchitectureDefinition } from './cpuArchitecture';
 import { mernStackDefinition } from './mernStack';
 import { productDeploymentDefinition } from './productDeployment';
 import { linuxTerminalDefinition } from './linuxTerminal';
 
 export const CORE_ALGORITHMS_REGISTRY: Record<string, AlgorithmDefinition<any, any>> = {
+  // Computer Fundamentals & Architecture
+  'cpu-ram-architecture': cpuArchitectureDefinition as AlgorithmDefinition<any, any>,
+  'compilation-flow': compilationFlowDefinition as AlgorithmDefinition<any, any>,
+
   // DSA - Sorting
   'bubble-sort': bubbleSortDefinition as AlgorithmDefinition<any, any>,
   'selection-sort': selectionSortDefinition as AlgorithmDefinition<any, any>,
@@ -73,7 +78,6 @@ export const CORE_ALGORITHMS_REGISTRY: Record<string, AlgorithmDefinition<any, a
   'cicd-pipeline': cicdPipelineDefinition as AlgorithmDefinition<any, any>,
   'waterfall-model': waterfallModelDefinition as AlgorithmDefinition<any, any>,
   'git-workflow': gitWorkflowDefinition as AlgorithmDefinition<any, any>,
-  'compilation-flow': compilationFlowDefinition as AlgorithmDefinition<any, any>,
   'lld-ride-booking': lldRideBookingDefinition as AlgorithmDefinition<any, any>,
   'class-object-oop': lldRideBookingDefinition as AlgorithmDefinition<any, any>,
 
