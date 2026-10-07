@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { RefreshCw, Edit3, Clock, HardDrive, Info, Maximize2, Minimize2, Tv, GitFork, Play, PanelRightClose, PanelRightOpen } from 'lucide-react';
+import { RefreshCw, Edit3, Clock, HardDrive, Info, Maximize2, Minimize2, Tv, GitFork, Play, PanelRightClose, PanelRightOpen, ZoomIn, ZoomOut } from 'lucide-react';
 import { useAlgorithmStore } from '../store/useAlgorithmStore';
 import { getAlgorithmById } from '../algorithms/registry';
 import { GRAPH_PRESETS } from '../algorithms/graphPresets';
@@ -61,6 +61,12 @@ export const VisualizerPage: React.FC = () => {
   const [targetInputVal, setTargetInputVal] = useState<number>(23);
   const [isEditingInput, setIsEditingInput] = useState<boolean>(false);
   const [inputError, setInputError] = useState<string | null>(null);
+
+  // Zoom controls for Canvas & Fullscreen
+  const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const handleZoomIn = () => setZoomLevel((prev) => Math.min(1.5, Number((prev + 0.1).toFixed(1))));
+  const handleZoomOut = () => setZoomLevel((prev) => Math.max(0.6, Number((prev - 0.1).toFixed(1))));
+  const handleResetZoom = () => setZoomLevel(1);
 
   // Graph specific states
   const [selectedGraphPresetId, setSelectedGraphPresetId] = useState<string>('preset-dijkstra-7');
@@ -336,17 +342,54 @@ export const VisualizerPage: React.FC = () => {
                   <Tv className="w-3.5 h-3.5 text-blue-400" />
                   <span>Execution Canvas (Full Screen)</span>
                 </div>
-                {!rightPanelOpen && (
-                  <button
-                    onClick={toggleRightPanel}
-                    className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 font-semibold"
-                  >
-                    <PanelRightOpen className="w-3.5 h-3.5" />
-                    <span>Open Code Panel</span>
-                  </button>
-                )}
+
+                <div className="flex items-center gap-2">
+                  {/* Zoom Controls */}
+                  <div className="flex items-center gap-0.5 bg-slate-800/80 px-1.5 py-0.5 rounded-lg border border-slate-700/60">
+                    <button
+                      onClick={handleZoomOut}
+                      disabled={zoomLevel <= 0.6}
+                      className="p-1 rounded text-slate-300 hover:text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                      title="Zoom Out (-)"
+                    >
+                      <ZoomOut className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={handleResetZoom}
+                      className="px-1.5 py-0.5 text-[10px] font-mono font-bold text-blue-400 hover:text-blue-300 hover:bg-slate-700 rounded transition-colors"
+                      title="Reset Zoom to 100% (Fit)"
+                    >
+                      {Math.round(zoomLevel * 100)}% Fit
+                    </button>
+                    <button
+                      onClick={handleZoomIn}
+                      disabled={zoomLevel >= 1.5}
+                      className="p-1 rounded text-slate-300 hover:text-white hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                      title="Zoom In (+)"
+                    >
+                      <ZoomIn className="w-3 h-3" />
+                    </button>
+                  </div>
+
+                  {!rightPanelOpen && (
+                    <button
+                      onClick={toggleRightPanel}
+                      className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 font-semibold"
+                    >
+                      <PanelRightOpen className="w-3.5 h-3.5" />
+                      <span>Open Code</span>
+                    </button>
+                  )}
+                </div>
               </div>
-              <div className="my-auto w-full">
+              <div
+                style={{
+                  transform: `scale(${zoomLevel})`,
+                  transformOrigin: 'top center',
+                  transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+                className="my-auto w-full"
+              >
                 {renderVisualizer()}
               </div>
             </div>
@@ -585,14 +628,41 @@ export const VisualizerPage: React.FC = () => {
       {/* Main Workspace: Canvas + Details/Code Panel */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <div className={`${rightPanelOpen ? 'lg:col-span-7' : 'lg:col-span-12'} flex flex-col gap-4 transition-all duration-300`}>
-          <div className="relative bg-white/90 dark:bg-slate-900/80 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-6 shadow-xl backdrop-blur-md transition-colors duration-300">
-            <div className="flex items-center justify-between mb-4">
+          <div className="relative bg-white/90 dark:bg-slate-900/80 rounded-2xl border border-slate-200/80 dark:border-slate-800 p-4 sm:p-5 shadow-xl backdrop-blur-md transition-colors duration-300">
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
               <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center gap-2">
                 <Play className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 Visual Execution Canvas
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2.5 flex-wrap">
+                {/* Zoom Controls */}
+                <div className="flex items-center gap-0.5 bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700/60">
+                  <button
+                    onClick={handleZoomOut}
+                    disabled={zoomLevel <= 0.6}
+                    className="p-1 rounded text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                    title="Zoom Out (-)"
+                  >
+                    <ZoomOut className="w-3 h-3" />
+                  </button>
+                  <button
+                    onClick={handleResetZoom}
+                    className="px-1.5 py-0.5 text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400 hover:bg-slate-200 dark:hover:bg-slate-700 rounded transition-colors"
+                    title="Reset Zoom to 100% (Fit)"
+                  >
+                    {Math.round(zoomLevel * 100)}% Fit
+                  </button>
+                  <button
+                    onClick={handleZoomIn}
+                    disabled={zoomLevel >= 1.5}
+                    className="p-1 rounded text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:hover:bg-transparent transition-colors"
+                    title="Zoom In (+)"
+                  >
+                    <ZoomIn className="w-3 h-3" />
+                  </button>
+                </div>
+
                 <button
                   onClick={toggleRightPanel}
                   className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100 dark:hover:bg-blue-900/50 px-2.5 py-1 rounded-lg border border-blue-200 dark:border-blue-800/60 transition-colors"
@@ -621,7 +691,16 @@ export const VisualizerPage: React.FC = () => {
                 </button>
               </div>
             </div>
-            {renderVisualizer()}
+            <div
+              style={{
+                transform: `scale(${zoomLevel})`,
+                transformOrigin: 'top center',
+                transition: 'transform 0.15s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+              className="w-full"
+            >
+              {renderVisualizer()}
+            </div>
           </div>
           <Player />
         </div>

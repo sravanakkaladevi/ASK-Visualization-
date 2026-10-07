@@ -13,6 +13,7 @@ import {
   Maximize2,
   Minimize2,
   Lock,
+  Github,
 } from 'lucide-react';
 import { useAlgorithmStore } from '../store/useAlgorithmStore';
 import { getAllAlgorithms } from '../algorithms/registry';
@@ -153,6 +154,18 @@ export const Header: React.FC = () => {
 
       {/* RIGHT: Action Controls */}
       <div className="flex items-center gap-2">
+        {/* Developer Attribution */}
+        <a
+          href="https://github.com/sravanakkaladevi/ASK-Visualization-"
+          target="_blank"
+          rel="noreferrer"
+          className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 hover:from-blue-500/20 hover:to-indigo-500/20 border border-blue-500/30 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-all hover:scale-105 shadow-sm"
+          title="Developed by Sravan Akkaladevi on GitHub"
+        >
+          <Github className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
+          <span>Developed by <strong className="font-extrabold text-blue-600 dark:text-blue-400">Sravan Akkaladevi</strong></span>
+        </a>
+
         {/* Recording / Focus Mode Button */}
         <button
           onClick={toggleFocusMode}

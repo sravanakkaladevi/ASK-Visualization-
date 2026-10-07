@@ -24,6 +24,8 @@ import {
   Database,
   Layout,
   Terminal,
+  Github,
+  Heart,
 } from 'lucide-react';
 import { getAllAlgorithms, getImplementedAlgorithms } from '../algorithms/registry';
 import { useAlgorithmStore } from '../store/useAlgorithmStore';
@@ -513,6 +515,29 @@ export const DashboardPage: React.FC = () => {
           </div>
         </section>
       )}
+
+      {/* Footer / Attribution */}
+      <footer className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
+        <div className="flex items-center gap-2">
+          <span>Developed with</span>
+          <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500 inline animate-pulse" />
+          <span>by <strong className="text-slate-800 dark:text-slate-200 font-bold">Sravan Akkaladevi</strong></span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/sravanakkaladevi/ASK-Visualization-"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-1.5 hover:text-blue-500 transition-colors font-medium"
+          >
+            <Github className="w-4 h-4" />
+            <span>GitHub Repository</span>
+          </a>
+          <span className="text-slate-300 dark:text-slate-700">•</span>
+          <span>MIT License © {new Date().getFullYear()}</span>
+        </div>
+      </footer>
     </div>
   );
 };

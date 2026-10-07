@@ -9,6 +9,7 @@ An interactive, educational visualization platform crafted for students, fresher
 ## ✨ Features & Capabilities
 
 - 🎯 **Visual Step-by-Step Execution Engine**: Step forward, step backward, scrub with an interactive timeline slider, adjust playback speeds ($0.5\times$ to $4\times$), and observe real-time state transitions.
+- 🔍 **Interactive Canvas Zoom (Zoom In / Zoom Out / Fit)**: Scale and fit complex diagrams from $60\%$ to $150\%$ for any screen resolution.
 - 💻 **Multi-Language Code Sync**: View synchronized reference code in **Python** (default), **C++**, and **Java** with real-time active line highlighting.
 - 🖥️ **Full-Screen Focus Mode (`F`)**: Maximize visual workspace with a toggleable side code panel (**Show Code** / **Hide Code**) and zero vertical clipping.
 - 🌓 **Theme Persistence**: Sleek Dark Mode and Light Mode with seamless `localStorage` persistence.
@@ -152,6 +153,15 @@ Contributions, feedback, and suggestions are welcome!
 
 ---
 
+## 👨‍💻 Developer & Author
+
+Developed with ❤️ by **Sravan Akkaladevi**  
+- **GitHub**: [@sravanakkaladevi](https://github.com/sravanakkaladevi)
+- **Repository**: [https://github.com/sravanakkaladevi/ASK-Visualization-](https://github.com/sravanakkaladevi/ASK-Visualization-)
+
+---
+
 ## 📄 License
 
 This project is licensed under the MIT License — feel free to use it for learning, teaching, and building!
+
